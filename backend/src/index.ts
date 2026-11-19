@@ -60,23 +60,28 @@ app.use((req, res) => {
 // Middleware central de gestion des erreurs
 app.use(errorHandler);
 
-const server = app.listen(config.port, () => {
-  console.log(`====================================================`);
-  console.log(`  Gora Niane Portfolio API - Server Running`);
-  console.log(`  URL: http://localhost:${config.port}`);
-  console.log(`  Environment: ${config.nodeEnv}`);
-  console.log(`  Frontend: ${config.frontendUrl}`);
-  console.log(`====================================================`);
-});
-
-// Arrêt gracieux du serveur
-const shutdown = () => {
-  console.log('Arrêt du serveur en cours...');
-  server.close(() => {
-    console.log('Serveur arrêté avec succès.');
-    process.exit(0);
+// Démarrage du serveur pour l'environnement local (sur Vercel, l'application est exportée)
+if (!process.env.VERCEL) {
+  const server = app.listen(config.port, () => {
+    console.log(`====================================================`);
+    console.log(`  Gora Niane Portfolio API - Server Running`);
+    console.log(`  URL: http://localhost:${config.port}`);
+    console.log(`  Environment: ${config.nodeEnv}`);
+    console.log(`  Frontend: ${config.frontendUrl}`);
+    console.log(`====================================================`);
   });
-};
 
-process.on('SIGTERM', shutdown);
-process.on('SIGINT', shutdown);
+  // Arrêt gracieux du serveur
+  const shutdown = () => {
+    console.log('Arrêt du serveur en cours...');
+    server.close(() => {
+      console.log('Serveur arrêté avec succès.');
+      process.exit(0);
+    });
+  };
+
+  process.on('SIGTERM', shutdown);
+  process.on('SIGINT', shutdown);
+}
+
+export default app;
