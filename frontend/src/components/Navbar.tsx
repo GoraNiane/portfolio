@@ -70,9 +70,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
               <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white" />
             </div>
             <div className="hidden sm:block">
-              <div className="font-bold text-sm text-slate-950 group-hover:text-blue-600 transition-colors flex items-center gap-1">
+              <div className="font-bold text-sm text-slate-950 group-hover:text-blue-600 transition-colors">
                 {profileData.name}
-                <span className="text-blue-600 text-xs font-mono font-bold">.dev</span>
               </div>
               <div className="text-[11px] text-slate-500 font-mono tracking-tight font-medium">Software Developer</div>
             </div>
